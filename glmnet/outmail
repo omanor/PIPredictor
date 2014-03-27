@@ -1,0 +1,294 @@
+From ohadm Tue Sep 21 15:24:47 2010
+To: compbio@wisdom.weizmann.ac.il
+Subject: CVS update: Develop/Matlab/Lasso/glmnet_matlab
+
+
+Date:	Tuesday September 21, 2010 @ 15:24
+Author:	ohadm
+
+Update of /home/genie/Genie/CVS/Develop/Matlab/Lasso/glmnet_matlab
+In directory mcluster02.wisdom.weizmann.ac.il:/home/ohadm/Develop/Matlab/Lasso/glmnet_matlab
+
+Log Message:
+Directory /home/genie/Genie/CVS/Develop/Matlab/Lasso/glmnet_matlab added to the repository
+
+[input file was '-']
+
+From ohadm Tue Sep 21 15:26:30 2010
+To: compbio@wisdom.weizmann.ac.il
+Subject: CVS update: Develop/Matlab/Lasso/glmnet_matlab
+
+
+Date:	Tuesday September 21, 2010 @ 15:26
+Author:	ohadm
+
+Update of /home/genie/Genie/CVS/Develop/Matlab/Lasso/glmnet_matlab
+In directory mcluster02.wisdom.weizmann.ac.il:/home/ohadm/Develop/Matlab/Lasso/glmnet_matlab
+
+Added Files:
+	GLMnet.f README.txt cvglmnet.m cvglmnetMulticlass.m 
+	cvglmnetPlot.m glmnet.m glmnetCoef.m glmnetMex.F glmnetMex.dll 
+	glmnetMex.m glmnetMex.matlabR13.F glmnetMex.mexa64 
+	glmnetMex.mexglx glmnetMex.mexmaci glmnetMex.mexmaci64 
+	glmnetMex.mexw32 glmnetMex.mexw64 glmnetPlot.m glmnetPredict.m 
+	glmnetPrint.m glmnetSet.m nonzeroCoef.m outmail 
+Log Message:
+
+===================================================================
+File: GLMnet.f         	Status: Up-to-date
+
+   Working revision:	1.1	Sat May 31 12:17:58 2008
+   Repository revision:	1.1	/home/genie/Genie/CVS/Develop/Matlab/Lasso/glmnet_matlab/GLMnet.f,v
+
+   Existing Tags:
+	No Tags Exist
+
+===================================================================
+File: README.txt       	Status: Up-to-date
+
+   Working revision:	1.1	Wed Sep  8 11:46:08 2010
+   Repository revision:	1.1	/home/genie/Genie/CVS/Develop/Matlab/Lasso/glmnet_matlab/README.txt,v
+
+   Existing Tags:
+	No Tags Exist
+
+===================================================================
+File: cvglmnet.m       	Status: Up-to-date
+
+   Working revision:	1.1	Sun Jul 25 03:20:26 2010
+   Repository revision:	1.1	/home/genie/Genie/CVS/Develop/Matlab/Lasso/glmnet_matlab/cvglmnet.m,v
+
+   Existing Tags:
+	No Tags Exist
+
+===================================================================
+File: cvglmnetMulticlass.m	Status: Up-to-date
+
+   Working revision:	1.1	Wed Sep  8 11:35:00 2010
+   Repository revision:	1.1	/home/genie/Genie/CVS/Develop/Matlab/Lasso/glmnet_matlab/cvglmnetMulticlass.m,v
+
+   Existing Tags:
+	No Tags Exist
+
+===================================================================
+File: cvglmnetPlot.m   	Status: Up-to-date
+
+   Working revision:	1.1	Sun Jul 25 04:50:56 2010
+   Repository revision:	1.1	/home/genie/Genie/CVS/Develop/Matlab/Lasso/glmnet_matlab/cvglmnetPlot.m,v
+
+   Existing Tags:
+	No Tags Exist
+
+===================================================================
+File: glmnet.m         	Status: Up-to-date
+
+   Working revision:	1.1	Sun Jul 25 03:07:50 2010
+   Repository revision:	1.1	/home/genie/Genie/CVS/Develop/Matlab/Lasso/glmnet_matlab/glmnet.m,v
+
+   Existing Tags:
+	No Tags Exist
+
+===================================================================
+File: glmnetCoef.m     	Status: Up-to-date
+
+   Working revision:	1.1	Tue Feb  9 23:50:14 2010
+   Repository revision:	1.1	/home/genie/Genie/CVS/Develop/Matlab/Lasso/glmnet_matlab/glmnetCoef.m,v
+
+   Existing Tags:
+	No Tags Exist
+
+===================================================================
+File: glmnetMex.F      	Status: Up-to-date
+
+   Working revision:	1.1	Tue Feb  9 23:50:34 2010
+   Repository revision:	1.1	/home/genie/Genie/CVS/Develop/Matlab/Lasso/glmnet_matlab/glmnetMex.F,v
+
+   Existing Tags:
+	No Tags Exist
+
+===================================================================
+File: glmnetMex.dll    	Status: Up-to-date
+
+   Working revision:	1.1	Fri Sep  4 20:44:50 2009
+   Repository revision:	1.1	/home/genie/Genie/CVS/Develop/Matlab/Lasso/glmnet_matlab/glmnetMex.dll,v
+
+   Existing Tags:
+	No Tags Exist
+
+===================================================================
+File: glmnetMex.m      	Status: Up-to-date
+
+   Working revision:	1.1	Tue Feb  9 23:50:22 2010
+   Repository revision:	1.1	/home/genie/Genie/CVS/Develop/Matlab/Lasso/glmnet_matlab/glmnetMex.m,v
+
+   Existing Tags:
+	No Tags Exist
+
+===================================================================
+File: glmnetMex.matlabR13.F	Status: Up-to-date
+
+   Working revision:	1.1	Mon Sep  7 10:51:44 2009
+   Repository revision:	1.1	/home/genie/Genie/CVS/Develop/Matlab/Lasso/glmnet_matlab/glmnetMex.matlabR13.F,v
+
+   Existing Tags:
+	No Tags Exist
+
+===================================================================
+File: glmnetMex.mexa64 	Status: Up-to-date
+
+   Working revision:	1.1	Fri Sep  4 21:26:14 2009
+   Repository revision:	1.1	/home/genie/Genie/CVS/Develop/Matlab/Lasso/glmnet_matlab/glmnetMex.mexa64,v
+
+   Existing Tags:
+	No Tags Exist
+
+===================================================================
+File: glmnetMex.mexglx 	Status: Up-to-date
+
+   Working revision:	1.1	Wed Feb 24 14:13:54 2010
+   Repository revision:	1.1	/home/genie/Genie/CVS/Develop/Matlab/Lasso/glmnet_matlab/glmnetMex.mexglx,v
+
+   Existing Tags:
+	No Tags Exist
+
+===================================================================
+File: glmnetMex.mexmaci	Status: Up-to-date
+
+   Working revision:	1.1	Sun Jul 25 04:21:00 2010
+   Repository revision:	1.1	/home/genie/Genie/CVS/Develop/Matlab/Lasso/glmnet_matlab/glmnetMex.mexmaci,v
+
+   Existing Tags:
+	No Tags Exist
+
+===================================================================
+File: glmnetMex.mexmaci64	Status: Up-to-date
+
+   Working revision:	1.1	Sun Jan 24 20:21:00 2010
+   Repository revision:	1.1	/home/genie/Genie/CVS/Develop/Matlab/Lasso/glmnet_matlab/glmnetMex.mexmaci64,v
+
+   Existing Tags:
+	No Tags Exist
+
+===================================================================
+File: glmnetMex.mexw32 	Status: Up-to-date
+
+   Working revision:	1.1	Thu Jan 28 22:45:08 2010
+   Repository revision:	1.1	/home/genie/Genie/CVS/Develop/Matlab/Lasso/glmnet_matlab/glmnetMex.mexw32,v
+
+   Existing Tags:
+	No Tags Exist
+
+===================================================================
+File: glmnetMex.mexw64 	Status: Up-to-date
+
+   Working revision:	1.1	Thu Mar 11 08:48:00 2010
+   Repository revision:	1.1	/home/genie/Genie/CVS/Develop/Matlab/Lasso/glmnet_matlab/glmnetMex.mexw64,v
+
+   Existing Tags:
+	No Tags Exist
+
+===================================================================
+File: glmnetPlot.m     	Status: Up-to-date
+
+   Working revision:	1.1	Tue Feb  9 23:50:48 2010
+   Repository revision:	1.1	/home/genie/Genie/CVS/Develop/Matlab/Lasso/glmnet_matlab/glmnetPlot.m,v
+
+   Existing Tags:
+	No Tags Exist
+
+===================================================================
+File: glmnetPredict.m  	Status: Up-to-date
+
+   Working revision:	1.1	Wed Jun 23 06:47:28 2010
+   Repository revision:	1.1	/home/genie/Genie/CVS/Develop/Matlab/Lasso/glmnet_matlab/glmnetPredict.m,v
+
+   Existing Tags:
+	No Tags Exist
+
+===================================================================
+File: glmnetPrint.m    	Status: Up-to-date
+
+   Working revision:	1.1	Tue Feb  9 23:51:00 2010
+   Repository revision:	1.1	/home/genie/Genie/CVS/Develop/Matlab/Lasso/glmnet_matlab/glmnetPrint.m,v
+
+   Existing Tags:
+	No Tags Exist
+
+===================================================================
+File: glmnetSet.m      	Status: Up-to-date
+
+   Working revision:	1.1	Tue Feb  9 23:51:08 2010
+   Repository revision:	1.1	/home/genie/Genie/CVS/Develop/Matlab/Lasso/glmnet_matlab/glmnetSet.m,v
+
+   Existing Tags:
+	No Tags Exist
+
+===================================================================
+File: nonzeroCoef.m    	Status: Up-to-date
+
+   Working revision:	1.1	Wed Jul 15 18:57:22 2009
+   Repository revision:	1.1	/home/genie/Genie/CVS/Develop/Matlab/Lasso/glmnet_matlab/nonzeroCoef.m,v
+
+   Existing Tags:
+	No Tags Exist
+
+===================================================================
+File: outmail          	Status: Up-to-date
+
+   Working revision:	1.1	Tue Sep 21 13:24:47 2010
+   Repository revision:	1.1	/home/genie/Genie/CVS/Develop/Matlab/Lasso/glmnet_matlab/outmail,v
+
+   Existing Tags:
+	No Tags Exist
+
+
+From ohadm Mon Oct 18 09:12:05 2010
+To: compbio@wisdom.weizmann.ac.il
+Subject: CVS update: Develop/Matlab/Lasso/glmnet_matlab
+
+
+Date:	Monday October 18, 2010 @ 9:12
+Author:	ohadm
+
+Update of /home/genie/Genie/CVS/Develop/Matlab/Lasso/glmnet_matlab
+In directory mcluster02.wisdom.weizmann.ac.il:/home/ohadm/Develop/Matlab/Lasso/glmnet_matlab
+
+Modified Files:
+	outmail 
+Log Message:
+
+===================================================================
+File: outmail          	Status: Up-to-date
+
+   Working revision:	1.2	Tue Sep 21 13:26:30 2010
+   Repository revision:	1.2	/home/genie/Genie/CVS/Develop/Matlab/Lasso/glmnet_matlab/outmail,v
+
+   Existing Tags:
+	No Tags Exist
+
+
+From ohadm Mon Nov 15 11:09:34 2010
+To: compbio@wisdom.weizmann.ac.il
+Subject: CVS update: Develop/Matlab/Lasso/glmnet_matlab
+
+
+Date:	Monday November 15, 2010 @ 11:09
+Author:	ohadm
+
+Update of /home/genie/Genie/CVS/Develop/Matlab/Lasso/glmnet_matlab
+In directory mcluster02.wisdom.weizmann.ac.il:/home/ohadm/Develop/Matlab/Lasso/glmnet_matlab
+
+Modified Files:
+	outmail 
+Log Message:
+
+===================================================================
+File: outmail          	Status: Up-to-date
+
+   Working revision:	1.3	Mon Oct 18 07:12:05 2010
+   Repository revision:	1.3	/home/genie/Genie/CVS/Develop/Matlab/Lasso/glmnet_matlab/outmail,v
+
+   Existing Tags:
+	No Tags Exist
+
+
