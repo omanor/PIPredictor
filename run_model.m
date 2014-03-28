@@ -1,13 +1,26 @@
-function run_model(TabF_reduced_file, surname, models_mat_file, output_prefix)
+function run_model(TabF_reduced_file, surname, sex, models_mat_file, output_prefix, verbose)
+
+MEAN_N_PUBS_OF_PI = 7.2;        % mean of best paper
+MEAN_N_PUBS_OF_NON_PI = 5.9;
+
+MEAN_MEAN_IF_OF_PI = 7.2;        % mean of best paper
+MEAN_MEAN_IF_OF_NON_PI = 5.9;
+
+MEAN_MAX_IF_OF_PI = 7.2;        % mean of best paper
+MEAN_MAX_IF_OF_NON_PI = 5.9;
+
+MEAN_MAX_AS_FIRST_IF_OF_PI = 7.2;        % mean of best paper
+MEAN_MAX_AS_FIRST_IF_OF_NON_PI = 5.9;
 
 warning off;
 tic
 
-display(['pub file: ' TabF_reduced_file]);
-display(['surname: ' surname]);
-display(['models file: ' models_mat_file]);
-display(['out prefix: ' output_prefix]);
-
+if (strcmp(verbose,'on'))
+  display(['pub file: ' TabF_reduced_file]);
+  display(['surname: ' surname]);
+  display(['models file: ' models_mat_file]);
+  display(['out prefix: ' output_prefix]);
+end
 
 %if ischar(surname)
  %   surname = eval(surname)
@@ -20,22 +33,41 @@ display(['out prefix: ' output_prefix]);
 
 surname = regexprep(surname,'(\<[a-z])','${upper($1)}');
 
-display('Getting time series');
+if (strcmp(verbose,'on'))     
+  display('Getting time series');
+end
+
 s = GetAuthorTimeSeries_single_author(TabF_reduced_file, surname);
 
 % is not PI
 s.is_PI = false(size(s.PMIDs))';
 
-% add author H-index
-s = GetAuthorHindexUpToPI(s,'n_citations','Hidx');
+%through_year = [1:15 20 50]; % or get through years from models: models_mat_file.mat
+%through_year = 1:7;
+through_year = [2 4 6];
+
+% add author h-index
+if (strcmp(verbose,'on'))
+  disp 'adding h-index'
+end
+
+for N = through_year
+    s = GetAuthorHindexUpToPI(s,'n_citations',['hindex_ty_' num2str(N)],N);
+end
 
 % assign country and affiliation ranking
 %s = PIPAssignAffiliationQ(s, 1, 'temp.mat');
 
 % add gender - Removed for now     add checkbox in website ??
 %s = PIPPredictGenderFromFirstName(s);
+if (ischar(sex))
+    sex = str2double(sex);
+end
+s.sex = sex;
 
-display('Assigning uni rank')
+if (strcmp(verbose,'on'))
+  display('Assigning uni rank')
+end
 s = PIPAssignAffiliation_single_author(s);
 
 %display('Affilation features...');
@@ -51,21 +83,24 @@ s = PIPAssignAffiliation_single_author(s);
 %end
 %
 
-display('Adding IF...');
+if (strcmp(verbose,'on'))     
+  display('Adding IF...');
+end
 % Add IF: use cites per doc if JIF 5 year doesnt exist
 s.IF = s.JIF_5year;
 s.IF(isnan(s.IF)) = s.Cites_per_Doc_2_years(isnan(s.IF));
 %
 
 % add cite per IF
-disp 'adding cite per IF'
+if (strcmp(verbose,'on'))     
+  disp 'adding cite per IF'
+end
 s.log_cite_per_IF = log2(s.n_citations) - log2(s.IF);
 s.log_cite_per_IF(isinf(s.log_cite_per_IF)) = nan;
 
-display('Adding year info...');
-%through_year = [1:15 20 50]; % or get through years from models: models_mat_file.mat
-%through_year = 1:7;
-through_year = [4 8];
+if (strcmp(verbose,'on'))     
+  display('Adding year info...');
+end
 
 s = PIPAddFeaturesUpToYearN_var(s,through_year,'JIF');
 s = PIPAddFeaturesUpToYearN_var(s,through_year,'NumAuthors');
@@ -135,18 +170,20 @@ s = PIPAddFeaturesUpToYearN_npub(s,through_year);
 % create 3 vectors for table output
 % n_publications, mean IF, max IF, max IF as first
 
-given_stats = [length(s.IF) ; mean(s.IF) ; max(s.IF) ; max(s.IF(s.AuthorPositions == 1))]
+given_stats = [length(s.IF) ; mean(s.IF) ; max(s.IF) ; max(s.IF(s.AuthorPositions == 1))];
 given_stats(isnan(given_stats)) = 0;
 
-%PI_stats = [MEAN_N_PUBS_OF_PI ; MEAN_MEAN_IF_OF_PI ; MEAN_MAX_IF_OF_PI ; MEAN_MAX_AS_FIRST_IF_OF_PI];
-%NON_PI_stats = [MEAN_N_PUBS_OF_NON_PI ; MEAN_MEAN_IF_OF_NON_PI ; MEAN_MAX_IF_OF_NON_PI ; MEAN_MAX_AS_FIRST_IF_OF_NON_PI];
+PI_stats = [MEAN_N_PUBS_OF_PI ; MEAN_MEAN_IF_OF_PI ; MEAN_MAX_IF_OF_PI ; MEAN_MAX_AS_FIRST_IF_OF_PI];
+
+NON_PI_stats = [MEAN_N_PUBS_OF_NON_PI ; MEAN_MEAN_IF_OF_NON_PI ; MEAN_MAX_IF_OF_NON_PI ; MEAN_MAX_AS_FIRST_IF_OF_NON_PI];
 
 WriteArray2TabDelimited(given_stats, [output_prefix '.stats']);
-%WriteArray2TabDelimited(PI_stats, [output_prefix '.pis']);
-%WriteArray2TabDelimited(NON_PI_stats, [output_prefix '.non_pis']);
+WriteArray2TabDelimited(PI_stats, [output_prefix '.pis']);
+WriteArray2TabDelimited(NON_PI_stats, [output_prefix '.non_pis']);
 
-display('Creating feature matrix...');
-
+if (strcmp(verbose,'on'))     
+  display('Creating feature matrix...');
+end
 %% create feature matrix from struct:
 
 all_field_names = fieldnames(s);
@@ -181,35 +218,43 @@ end
 given_features(isnan(given_features)) = 0; % ?????? <<<<<<<<<<<<<<   this is needed !!!!!!!!!!!!
 given_features(isinf(given_features)) = 0; % ?????? <<<<<<<<<<<<<<   this is needed !!!!!!!!!!!!
 
-display('Loading and running model...');
-
+if (strcmp(verbose,'on'))     
+  display('Loading and running model...');
+end
 
 % load models (m) that were trained on all data
 load(models_mat_file); % load cell array (m) with models
 
 model_feature_names = feature_names;
 
-display(['num features in given file = ' num2str(length(given_feature_names))]);
-display(['num features in model = ' num2str(length(model_feature_names))]);
-
-%%remove gender from the given features
-given_gender_ind = find(strcmp(given_feature_names, 'sex'));
-if (~isempty(given_gender_ind))
-    given_features(given_gender_ind) = [];
-    given_feature_names(given_gender_ind) = [];
+if (strcmp(verbose,'on'))     
+  display(['num features in given file = ' num2str(length(given_feature_names))]);
+  display(['num features in model = ' num2str(length(model_feature_names))]); 
 end
+% %%remove gender from the given features
+% given_gender_ind = find(strcmp(given_feature_names, 'sex'));
+% if (~isempty(given_gender_ind))
+%     given_features(given_gender_ind) = [];
+%     given_feature_names(given_gender_ind) = [];
+% end
 
 %% make sure the proper weigths are assigned to the proper features
 
-model_feature_names'
-given_feature_names'
-
 [~, model_ind, given_ind] = intersect(model_feature_names, given_feature_names, 'stable');
+C_model = setdiff(model_feature_names, given_feature_names);
+C_given = setdiff(given_feature_names, model_feature_names);
 given_features = given_features(given_ind);
 given_feature_names = given_feature_names(given_ind);
 
-display(['num features after intersection = ' num2str(length(given_features))]);
-display(['num feature names after intersection = ' num2str(length(given_feature_names))]);
+if (strcmp(verbose,'on'))     
+  display(['num features after intersection = ' num2str(length(given_features))]);
+  display(['num feature names after intersection = ' num2str(length(given_feature_names))]);
+end
+
+%display 'features in model that are not given:'
+%C_model'
+%display 'features given that are not in model:'
+%C_given'
 
 % normalize given features
 given_features = (given_features - model_mu(model_ind)) ./ model_sigma(model_ind);
@@ -222,31 +267,35 @@ models = models(:);
 score_quant_PI = score_quant_PI(:);
 score_quant_NON = score_quant_NON(:);
 
-num_models = length(models)
+num_models = length(models);
 P = nan(num_models,1);
 PI_percentile = nan(num_models,1);
 NON_percentile_FDR = nan(num_models,1);
 
 for I=1:5%length(models)
-        models{I}.beta = models{I}.beta(model_ind);
-
-        P(I) = glmnetPredict(models{I}, 'response', given_features);
-        %P(I)
-        %score_quant_PI{I}(2:end-1)
-        %score_quant_NON{I}(2:end-1)
-
-        [min_pi,~] = min(find(score_quant_PI{I}(2:end-1) > P(I)));
-
-        [max_non_pi,~] = max(find(score_quant_NON{I}(2:end-1) <= P(I)));
-
-        PI_percentile(I) = min_pi * 5;
-
-        if (isempty(max_non_pi))
-           max_non_pi = 1;
-        end
-
-        NON_percentile_FDR(I) = (20 - max_non_pi) * 5;
-
+    models{I}.beta = models{I}.beta(model_ind);
+    
+    P(I) = glmnetPredict(models{I}, 'response', given_features);
+    P(I);
+    score_quant_PI{I}(2:end-1);
+    score_quant_NON{I}(2:end-1);
+    
+    [min_pi,~] = min(find(score_quant_PI{I}(2:end-1) > P(I)));
+    
+    [max_non_pi,~] = max(find(score_quant_NON{I}(2:end-1) <= P(I)));
+    
+    if (isempty(min_pi)) % Ohad, has to put this in since I got an error when I ran a model that was trained on a subset of the data, is this OK ???????
+        min_pi = 1;
+    end
+    
+    PI_percentile(I) = min_pi * 5;
+    
+    if (isempty(max_non_pi))
+        max_non_pi = 1;
+    end
+    
+    NON_percentile_FDR(I) = (20 - max_non_pi) * 5;
+    
 end
 
 
@@ -254,13 +303,18 @@ end
 % return mean model P
 %display(P)
 %
-display(['Mean test AUC of loaded models = ' num2str(mean(modstruct.results_mean_auc_across_10_repeats(:,2)))]);
-display(['Mean probability of becoming PI for given = ' num2str(nanmean(P))]);
+if (strcmp(verbose,'on'))     
+  display(['Mean test AUC of loaded models = ' num2str(mean(modstruct.results_mean_auc_across_10_repeats(:,2)))]);
+  display(['Mean probability of becoming PI for given = ' num2str(nanmean(P))]);
+end
 
+P = nanmean(P);
+PI_percentile = nanmedian(PI_percentile);
+NON_percentile_FDR = nanmedian(NON_percentile_FDR);
 
-P = nanmedian(P)
-PI_percentile = nanmedian(PI_percentile)
-NON_percentile_FDR = nanmedian(NON_percentile_FDR)
+if (strcmp(verbose,'on'))
+   display([P PI_percentile NON_percentile_FDR]);
+end
 
 WriteArray2TabDelimited([P PI_percentile NON_percentile_FDR] , [output_prefix '.pred']);
 
