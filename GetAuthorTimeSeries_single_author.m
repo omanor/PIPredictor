@@ -1,5 +1,9 @@
 function s = GetAuthorTimeSeries_single_author(TabF_reduced_file, surname)
 % s = GetAuthorTimeSeries_single_author(TabF_reduced_file, surname)
+%
+% returns publication timeseries structure given:
+%  TabF_reduced_file - see run_model.m documentation
+%  surname
 
 %% load pubmed records for single authos
 fid = fopen(TabF_reduced_file);
