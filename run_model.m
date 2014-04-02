@@ -1,16 +1,9 @@
 function run_model(TabF_reduced_file, surname, sex, models_mat_file, output_prefix, verbose)
-
-MEAN_N_PUBS_OF_PI = 7.2;        % mean of best paper
-MEAN_N_PUBS_OF_NON_PI = 5.9;
-
-MEAN_MEAN_IF_OF_PI = 7.2;        % mean of best paper
-MEAN_MEAN_IF_OF_NON_PI = 5.9;
-
-MEAN_MAX_IF_OF_PI = 7.2;        % mean of best paper
-MEAN_MAX_IF_OF_NON_PI = 5.9;
-
-MEAN_MAX_AS_FIRST_IF_OF_PI = 7.2;        % mean of best paper
-MEAN_MAX_AS_FIRST_IF_OF_NON_PI = 5.9;
+% run_model(TabF_reduced_file, surname, sex, models_mat_file, output_prefix, verbose)
+%
+%  runs a prediction given:
+%    TabF_reduced_file - tab separated file with one publication per line with the following features as columns:
+%      
 
 warning off;
 tic
