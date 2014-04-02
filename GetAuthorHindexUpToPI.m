@@ -1,7 +1,9 @@
 function s = GetAuthorHindexUpToPI(s, Vin, Vout, N)
-% s = GetAuthorHindexUpToPI(s, Vin, Vout)
-% add author h-index (Vout) up to pi for var Vin
-% up to N years after first publication
+% s = GetAuthorHindexUpToPI(s, Vin, Vout, N)
+% add author h-index (Vout) up to N years after start of career for var Vin
+% Vin should refer to the variable counting citations
+% Vout will be the name of the h-index variable that is added to s
+% s is a publication time series structure
 
 if ~exist('N','var')
     N = inf;
