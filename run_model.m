@@ -3,7 +3,12 @@ function run_model(TabF_reduced_file, surname, sex, models_mat_file, output_pref
 %
 %  runs a prediction given:
 %    TabF_reduced_file - tab separated file with one publication per line with the following features as columns:
-%      
+%      PMID | ISSN | CreatedDate | JournalDate | JournalTitle | ArticleTitle | UniRank | AuthorList | PublicationType | n_citations | Impact Factor | 5-Year Impactor Factor | Immediacy Index | Cited Half-life | EigenfactorTM Score | Article InfluenceTM Score | JournalRanking | SJR | Journal H index | Cites / Doc. (2years)
+%    surname (last name)
+%    sex - 1 for male -1 for female 0 for not specified
+%    models_mat_file - model file
+%    output_prefix - prefix for output file names
+%    verbose - true to print ouput
 
 warning off;
 tic
