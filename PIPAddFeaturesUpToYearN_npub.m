@@ -1,6 +1,6 @@
 function s = PIPAddFeaturesUpToYearN_npub(s, N)
 % s = PIPAddFeaturesUpToYearN_npub(s, N)
-% add npub statistics to struct s through year N
+% add number of publication (count and rate) statistics to struct s through year N
 
 for I=1:length(s)
 %	disp([num2str(I/length(s)*100,3) '%']);
